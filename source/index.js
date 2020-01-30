@@ -98,15 +98,22 @@ class Popover extends React.Component {
   }
   componentDidUpdate(propsPrev, statePrev) {
     //log(`Component did update!`)
+    const willOpen = !propsPrev.isOpen && this.props.isOpen
+    const willClose = propsPrev.isOpen && !this.props.isOpen
+
+    if (willOpen) {
+      this.open()
+    } else if (willClose) {
+      this.close()
+    }
+
     const didOpen = !statePrev.toggle && this.state.toggle
     const didClose = statePrev.toggle && !this.state.toggle
 
     if (didOpen) {
-      this.open() // todo: remove
       this.enter()
     }
     else if (didClose) {
-      this.close() // todo: remove
       this.exit()
     }
   }
